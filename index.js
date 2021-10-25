@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const productsRoutes = require('./routes/productsRoutes')
+const productsRoutes = require('./routes/productsRoutes');
 
 const app = express();
 
@@ -13,7 +13,7 @@ app.get('/', (_request, response) => {
   response.send();
 });
 
-app.use(productsRoutes)
+app.use(productsRoutes);
 
 app.listen(PORT, () => {
   console.log(`ouvindo na porta ${PORT}`);

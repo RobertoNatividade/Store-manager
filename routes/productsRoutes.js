@@ -37,6 +37,4 @@ router.delete('/products/:id',
 validListFormat,
 deleteProducts);
 
-router.delete('/products/:id', validListFormat, deleteProducts);
-
 module.expports = router
