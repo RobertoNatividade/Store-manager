@@ -1,4 +1,4 @@
-const router = require('express').Router()
+const router = require('express').Router();
 
 const {
     createProduct,
@@ -6,14 +6,14 @@ const {
     getAllProducts,
     updateProducts,
     deleteProducts,
-  } = require('./controllers/productsControlle');
+  } = require('../controllers/productsControlle');
   
   const {
     validateNameLength,
     productExists,
     productsQuantity,
     validListFormat,
-  } = require('./middlewares/validateData');
+  } = require('../middlewares/validateData');
 
 router.get('/products/:id',
 validListFormat,
@@ -36,4 +36,4 @@ router.delete('/products/:id',
 validListFormat,
 deleteProducts);
 
-module.expports = router
+module.expports = router;
