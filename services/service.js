@@ -12,5 +12,5 @@ const getAllProducts = async () => {
 
 module.exports = {
   createProduct,
-  getAllProducts
+  getAllProducts,
 };

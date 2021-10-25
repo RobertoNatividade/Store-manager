@@ -24,7 +24,6 @@ const createProduct = async ({ name, quantity }) => {
     return addProduct;
   };
 
-
 module.exports = {
     createProduct,
     getAllProducts,
