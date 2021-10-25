@@ -11,8 +11,7 @@ const getAllProducts = async () => {
   };
 
 
-  moduleexports = {
+  module.exports = {
     createProduct,
     getAllProducts
-
   };

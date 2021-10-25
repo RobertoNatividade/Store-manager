@@ -14,7 +14,6 @@ const createProduct = rescue(async (req, res) => {
     const awaitProducts = await service.getAllProducts();
     return res.status(200).json(awaitProducts);
   });
-
   
 module.exports = { 
     createProduct,
