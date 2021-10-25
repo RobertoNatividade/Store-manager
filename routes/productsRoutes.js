@@ -1,5 +1,4 @@
 const router = require('express').Router()
-const { deleteProducts,} = require('./controllers/productsControlle');
 
 const {
     createProduct,
