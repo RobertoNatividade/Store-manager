@@ -18,6 +18,6 @@ function connection() {
       conteudo = conn.conteudo(DB_NAME);
       return conteudo;
     });
-  };
+}
 
 module.exports = connection;

@@ -10,8 +10,7 @@ const getAllProducts = async () => {
     return addProduct;
   };
 
-
-  module.exports = {
-    createProduct,
-    getAllProducts
-  };
+module.exports = {
+  createProduct,
+  getAllProducts
+};
