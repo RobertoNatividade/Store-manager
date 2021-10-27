@@ -11,14 +11,9 @@ const DB_NAME = 'StoreManager';
 
 let db = null;
 
-function connection() {
-  return db
-  ? Promise.resolve(db)
-  : MongoClient.connect(MONGO_DB_URL, OPTIONS)
-  .then((conn) => {
-    db = conn.db(DB_NAME);
-    return db;
-  });
-}
+const connection = () => {
+  return MongoClient.connect(MONGO_DB_URL, OPTIONS)
+   .then((conn) => conn.db(DB_NAME));
+};
 
 module.exports = connection;
