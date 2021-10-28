@@ -29,7 +29,7 @@ const updateIdSale = async (id, itensSold) => {
   }
   connect()
     .then(async (db) => db.collection('sales')
-      .updateOne({ _id: ObjectId(id) }, { $set: { itensSold }}));
+      .updateOne({ _id: ObjectId(id) }, { $set: { itensSold } }));
   return { _id: id, itensSold };
 };
 
