@@ -26,10 +26,10 @@ const getByIdSale = async (id) => {
 const updateIdSale = async (id, itensSold) => {
   if (!ObjectId.isValid(id)) {
     return null;
-  };
-  const sales = connect()
+  }
+  connect()
     .then(async (db) => db.collection('sales')
-      .updateOne({ _id: ObjectId(id) }, {$set:{ itensSold }}));
+      .updateOne( { _id: ObjectId(id) }, { $set:{ itensSold }}));
   return { _id: id, itensSold };
 };
 

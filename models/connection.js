@@ -9,7 +9,7 @@ const OPTIONS = {
 };
 
 const connection = async () => {
-  return mongoClient.connect(MONGO_DB_URL, OPTIONS)
+  return await mongoClient.connect(MONGO_DB_URL, OPTIONS)
     .then((conn) => conn.db(DB_NAME))
     .catch((err) => {
       console.error(err);
