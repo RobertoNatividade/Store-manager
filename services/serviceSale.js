@@ -39,4 +39,4 @@ const quantityIsValid = async (salesArray) => {
     return next();
   };
 
-  module.exports = { saleQuatityCheck, idRemoveCheck };
+  module.exports = { saleQuatityCheck, idRemoveCheck, quantityIsValid };

@@ -19,7 +19,7 @@ router.post('/', saleQuatityCheck, async (req, res) => {
       
       res.status(STATUS_OK).json(newSale);
     } catch (error) {
-      // console.log(erro.message);
+      // console.log(erro.message)
       res.status(STATUS_ERROR).send(messageErrorServer);
     }
   });
