@@ -1,91 +1,34 @@
-const productModel = require('../models/productModel');
+const Products = require('../models/productModel');
 
-const STATUS_ERROR_CLIENT = 422;
-
-// Req01
-const nameExist = async(name) =>{
-  const nameCheck = await productModel.findByName(name);
-  // console.log(nameCheck);
-  return nameCheck;
+const getAllProducts = async () => {
+  const getProducts = await Products.getAllProducts();
+  return getProducts;
 };
 
-// Req01
-const productNameCheck = async(req, res, next) => {
-  const {name} = req.body;
-  const nameMin = 5;
-  const testnameCheck = await nameExist(name);
-  // console.log(testnameCheck);
-  if (name.length < nameMin) {
-    return res.status(STATUS_ERROR_CLIENT).json({
-      err: {
-        code: 'invalid_data',
-        message: '"name" length must be at least 5 characters long'
-      }
-    });
-  }
-  if (testnameCheck) {
-    return res.status(STATUS_ERROR_CLIENT).json({
-      err: {
-        code: 'invalid_data',
-        'message': 'Product already exists'
-      }
-    });
-  }
-  return next();
+const getProductsById = async (id) => {
+  const getById = await Products.getProductsById(id);
+  return getById;
 };
 
-// Req01 - 03
-const productQuatityCheck = (req, res, next) =>{
-  const {quantity} = req.body;
-  const quantityMin = 1;
-  if(typeof quantity !== 'number') {
-    return res.status(STATUS_ERROR_CLIENT).json({
-      err: {
-        code: 'invalid_data',
-        message: '"quantity" must be a number'
-      }
-    });
-  }
-  if (quantity < quantityMin) {
-    return res.status(STATUS_ERROR_CLIENT).json({
-      err: {
-        code: 'invalid_data',
-        message: '"quantity" must be larger than or equal to 1'
-      }
-    });
-  }
-  return next();
+const createProduct = async ({ name, quantity }) => {
+  const addProduct = await Products.createProduct({ name, quantity });
+  return addProduct;
 };
 
-// Req03
-const productUpdateCheck = async(req, res, next) => {
-  const { name } = req.body;
-  const nameMin = 5;
-  if (name.length < nameMin) {
-    return res.status(STATUS_ERROR_CLIENT).json({
-      err: {
-        code: 'invalid_data',
-        message: '"name" length must be at least 5 characters long'
-      }
-    });
-  }
-  return next();
+const updateProducts = async (id, { name, quantity }) => {
+  const updateId = await Products.updateProducts(id, { name, quantity });
+  return updateId;
 };
 
-// Req04
-const idRemoveCheck = async(req, res, next) => {
-  const { id } = req.params;
-  const product = await productModel.getById(id);
-  if(!product) {
-    res.status(STATUS_ERROR_CLIENT).json({
-      err: {
-        code: 'invalid_data',
-        message: 'Wrong id format'
-      }
-    });
-  }
-  return next();
+const deleteProducts = async (id) => {
+  const deleting = await Products.deleteProducts(id);
+  return deleting;
 };
 
-module.exports = {productNameCheck, productQuatityCheck, productUpdateCheck,
-  idRemoveCheck };
+module.exports = {
+  createProduct,
+  getAllProducts,
+  getProductsById,
+  updateProducts,
+  deleteProducts,
+};

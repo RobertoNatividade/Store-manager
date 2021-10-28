@@ -1,83 +1,49 @@
-const express = require('express');
-const router = express.Router();
-const productModel = require('../models/productModel');
-const { productNameCheck, productQuatityCheck, 
-  productUpdateCheck, idRemoveCheck } = require('../services/productService');
+const rescue = require('express-rescue');
 
-const STATUS_OK = 200;
-const STATUS_CREATED = 201;
-const STATUS_ERROR_CLIENT = 422;
-const STATUS_ERROR_SERVER = 500;
-const messageErrorServer = {message: 'Sistema Indisponível'};
+const service = require('../services/productService');
 
-//Req01
-router.post('/', productNameCheck, productQuatityCheck, async (req, res) => {
+const createProduct = rescue(async (req, res) => {
   const { name, quantity } = req.body;
-  try {
-    const newProduct = await productModel.add(name, quantity);
-    res.status(STATUS_CREATED).json(newProduct);
-  } catch (error) {
-    console.log(error.message);
-    res.status(STATUS_ERROR_SERVER).send(messageErrorServer);
-  }
+
+  const addProduct = await service.createProduct({ name, quantity });
+
+  return res.status(201).json(addProduct);
 });
 
-// Req02
-router.get('/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-    const product = await productModel.getById(id);
-    // console.log(product);
-    if(!product) {
-      res.status(STATUS_ERROR_CLIENT).json({
-        err: {
-          code: 'invalid_data',
-          message: 'Wrong id format'
-        }
-      });
-    }
-    res.status(STATUS_OK).json(product);
-  } catch (error) {
-    console.log(error.message);
-    res.status(STATUS_ERROR_SERVER).send(messageErrorServer);
-  }
+const getAllProducts = rescue(async (_req, res) => {
+  const awaitProducts = await service.getAllProducts();
+  return res.status(200).json(awaitProducts);
 });
 
-router.get('/', async (req, res) => {
-  try {
-    const products = await productModel.getAll();
-    console.log(products);
-    res.status(STATUS_OK).json({ products });
-  } catch (error) {
-    console.log(error.message);
-    res.status(STATUS_ERROR_SERVER).send(messageErrorServer);
-  }
+const getProductsById = rescue(async (req, res) => {
+  const { id } = req.params;
+
+  const getProduct = await service.getProductsById(id);
+
+  res.status(200).json(getProduct);
 });
 
-// Req03
-router.put('/:id', productUpdateCheck, productQuatityCheck, async(req, res) => {
-  try {
-    const productForUpdate = req.body;
-    const { id } = req.params;
-    const productUpdated = await productModel.update(id, productForUpdate);
-    // console.log(productUpdated);
-    res.status(STATUS_OK).json(productUpdated);
-  } catch (error) {
-    console.log(error.message);
-    res.status(STATUS_ERROR_SERVER).send(messageErrorServer);
-  }
+const updateProducts = rescue(async (req, res) => {
+  const { id } = req.params;
+  const { name, quantity } = req.body;
+
+  const updateProduct = await service.updateProducts(id, { name, quantity });
+
+  res.status(200).json(updateProduct);
 });
 
-//Req04
-router.delete('/:id', idRemoveCheck, async(req, res) => {
-  try {
-    const { id } = req.params;
-    const productRemoved = await productModel.remove(id);
-    res.status(STATUS_OK).json(productRemoved);
-  } catch (error) {
-    console.log(error.message);
-    res.status(STATUS_ERROR_SERVER).send(messageErrorServer);
-  }
+const deleteProducts = rescue(async (req, res) => {
+  const { id } = req.params;
+
+  const deleting = await service.deleteProducts(id);
+
+  res.status(200).json(deleting);
 });
 
-module.exports = router;
+module.exports = {
+  createProduct,
+  getProductsById,
+  getAllProducts,
+  updateProducts,
+  deleteProducts,
+};
