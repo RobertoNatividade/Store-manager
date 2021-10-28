@@ -1,64 +1,80 @@
-const Service = require('../services');
+const express = require('express');
+const router = express.Router();
+const saleModel = require('../models/salesModels');
+const { saleQuatityCheck, idRemoveCheck } = require('../services/saleService');
 
-const HTTP_OK_STATUS = 200;
-const HTTP_NOT_FOUND_STATUS = 404;
-const HTTP_UNPROCESSABLE_STATUS = 422;
-const ERROR_STOCK = 'stock_problem';
+const STATUS_OK = 200;
+const STATUS_CREATED = 201;
+const STATUS_ERROR_CLIENT = 422;
+const STATUS_ERROR_NOT_FOUND = 404;
+const STATUS_ERROR_SERVER = 500;
+const messageErrorServer = {message: 'Sistema Indisponível'};
 
-const addSales = async (req, res) => {
-  const sale = await Service.sales.addSales(req.body);
+router.post('/', saleQuatityCheck, async(req, res)=> {
+  try {
+    const salesArray = req.body;
+   
+    const newSale = await saleModel.addNewSale(salesArray);
+   
+    res.status(STATUS_OK).json(newSale);
+  } catch (error) {
+    console.log(erro.message);
+    res.status(STATUS_ERRO).send(messageErrorServer);
+  }
+});
 
-  if (sale.err) return res.status(
-    sale.err.code === ERROR_STOCK ? HTTP_NOT_FOUND_STATUS : HTTP_UNPROCESSABLE_STATUS
-  ).json(sale);
+router.get('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const sale = await saleModel.getByIdSale(id);
+    if(!sale) {
+      res.status(STATUS_ERROR_NOT_FOUND).json({
+        err: {
+          code: 'not_found',
+          message: 'Sale not found'
+        }
+      });
+    }
+    res.status(STATUS_OK).json(sale);
+  } catch (error) {
+    console.log(erro.message);
+    res.status(STATUS_ERRO).send(messageErrorServer);
+  }
+});
 
-  res.status(HTTP_OK_STATUS).json(sale);
-};
+router.get('/', async (req, res) => {
+  try {
+    const sales = await saleModel.getAllSales();
+    res.status(STATUS_OK).json({'sales' : sales});
+  } catch (error) {
+    console.log(erro.message);
+    res.status(STATUS_ERRO).send(messageErrorServer);
+  }
+});
 
-const getSales = async (_req, res) => {
-  const sales = await Service.sales.getSales();
+router.put('/:id', saleQuatityCheck, async(req, res) =>{
+  try {
+    const { id } = req.params;
+    const saleUpdate = req.body;
+    const saleUpdated = await saleModel.updateIdSale(id, saleUpdate);
+   
+    res.status(STATUS_OK).json(saleUpdated);
+  } catch (error) {
+    console.log(erro.message);
+    res.status(STATUS_ERRO).send(messageErrorServer);
+  }
+} );
 
-  res.status(HTTP_OK_STATUS).json(sales);
-};
 
-const getSaleById = async (req, res) => {
-  const { id } = req.params;
+router.delete('/:id', idRemoveCheck, async(req, res) =>{
+  try {
+    const { id } = req.params;
+    const saleRemoved = await saleModel.removeSale(id);
+    res.status(STATUS_OK).json(saleRemoved);
+  } catch (error) {
+    console.log(erro.message);
+    res.status(STATUS_ERRO).send(messageErrorServer);
+  }
+} );
 
-  const sale = await Service.sales.getSaleById(id);
-
-  if (sale.err) return res.status(HTTP_NOT_FOUND_STATUS).json(sale);
-
-  res.status(HTTP_OK_STATUS).json(sale);
-};
-
-const updateSale = async (req, res) => {
-  const { id } = req.params;
-
-  const sale = await Service.sales.updateSale(id, req.body);
-
-  if (sale.err) return res.status(
-    sale.err.code === ERROR_STOCK ? HTTP_NOT_FOUND_STATUS : HTTP_UNPROCESSABLE_STATUS
-  ).json(sale);
-
-  res.status(HTTP_OK_STATUS).json(sale);
-};
-
-const deleteSale = async (req, res) => {
-  const { id } = req.params;
-
-  const sale = await Service.sales.deleteSale(id);
-
-  if (sale.err) return res.status(
-    sale.err.code === ERROR_STOCK ? HTTP_NOT_FOUND_STATUS : HTTP_UNPROCESSABLE_STATUS
-  ).json(sale);
-
-  res.status(HTTP_OK_STATUS).json(sale);
-};
-
-module.exports = {
-  addSales,
-  getSales,
-  getSaleById,
-  updateSale,
-  deleteSale,
-};
+module.exports = router;
