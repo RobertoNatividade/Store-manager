@@ -9,7 +9,9 @@ const connection = async () => mongoClient.connect(MONGO_DB_URL, {
     useUnifiedTopology: true,
   })
     .then((conn) => conn.db(DB_NAME))
-    .catch((err) => { console.error(err); process.exit(1);
+    .catch((err) => {
+      console.error(err);
+      process.exit(1);
     });
 
 module.exports = connection;
