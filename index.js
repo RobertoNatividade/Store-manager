@@ -9,6 +9,7 @@ const productController = require('./controllers/productController');
 const PORT = 3000;
 
 app.use(bodyParser.json());
+
 app.use('/products', productController);
 
 // não remova esse endpoint, e para o avaliador funcionar

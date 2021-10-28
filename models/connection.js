@@ -8,8 +8,8 @@ const connection = async () => mongoClient.connect(MONGO_DB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-    .then((connection) => connection.db(DB_NAME))
-    .catch((err) => { process.exit(1);
+    .then((conn) => conn.db(DB_NAME))
+    .catch((err) => { console.error(err); process.exit(1);
     });
 
 module.exports = connection;
