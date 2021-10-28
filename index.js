@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const products = require('./router/prodrouter');
 
 const saleController = require('./controllers/saleController');
+
 const app = express();
 
 const PORT = process.env.PORT || 3000;
