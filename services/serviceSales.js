@@ -2,7 +2,7 @@ const saleModel = require('../models/salesModels');
 
 const STATUS_ERROR_CLIENT = 422;
 
-const quantityIsValid = async(salesArray) => {
+const quantityIsValid = async (salesArray) => {
   const quantityMin = 1;
  
   const check = await salesArray
@@ -10,7 +10,7 @@ const quantityIsValid = async(salesArray) => {
   return check;
 };
 
-const saleQuatityCheck = async(req, res, next) => {
+const saleQuatityCheck = async (req, res, next) => {
   const salesArray = req.body;
   const quantityCheck = await quantityIsValid(salesArray);
   console.log(quantityCheck);
@@ -18,22 +18,22 @@ const saleQuatityCheck = async(req, res, next) => {
     return res.status(STATUS_ERROR_CLIENT).json({
       err: {
         code: 'invalid_data',
-        message: 'Wrong product ID or invalid quantity'
-      }
+        message: 'Wrong product ID or invalid quantity',
+      },
     });
   }
   return next();
 };
 
-const idRemoveCheck = async(req, res, next) => {
+const idRemoveCheck = async (req, res, next) => {
   const { id } = req.params;
   const sale = await saleModel.getByIdSale(id);
-  if(!sale) {
+  if (!sale) {
     res.status(STATUS_ERROR_CLIENT).json({
       err: {
         code: 'invalid_data',
-        message: 'Wrong sale ID format'
-      }
+        message: 'Wrong sale ID format',
+      },
     });
   }
   return next();

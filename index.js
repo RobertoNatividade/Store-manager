@@ -1,7 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const productsRoutes = require('./routes/productsRoutes');
-const salesController = require ('./controllers/salesController');
+const salesController = require('./controllers/salesController');
+
 const app = express();
 
 app.use(bodyParser.json());

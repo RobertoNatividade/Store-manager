@@ -3,11 +3,13 @@ const mongoClient = require('mongodb').MongoClient;
 const MONGO_DB_URL = 'mongodb://mongodb:27017/StoreManager';
 const DB_NAME = 'StoreManager';
 
+const OPTIONS = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+};
+
 const connection = async () => {
-  return mongoClient.connect(MONGO_DB_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  return await mongoClient.connect(MONGO_DB_URL, OPTIONS)
     .then((connection) => connection.db(DB_NAME))
     .catch((err) => {
       console.error(err);
