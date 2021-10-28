@@ -19,7 +19,7 @@ router.post('/', saleQuatityCheck, async (req, res) => {
    
     res.status(STATUS_OK).json(newSale);
   } catch (error) {
-    console.log(erro.message);
+    // console.log(erro.message);
     res.status(STATUS_ERRO).send(messageErrorServer);
   }
 });
@@ -33,12 +33,12 @@ router.get('/:id', async (req, res) => {
         err: {
           code: 'not_found',
           message: 'Sale not found',
-        }
+        },
       });
     }
     res.status(STATUS_OK).json(sale);
   } catch (error) {
-    console.log(erro.message);
+    // console.log(erro.message);
     res.status(STATUS_ERRO).send(messageErrorServer);
   }
 });
@@ -46,9 +46,9 @@ router.get('/:id', async (req, res) => {
 router.get('/', async (req, res) => {
   try {
     const sales = await saleModel.getAllSales();
-    res.status(STATUS_OK).json({ 'sales' : sales });
+    res.status(STATUS_OK).json({ sales });
   } catch (error) {
-    console.log(erro.message);
+    // console.log(erro.message);
     res.status(STATUS_ERRO).send(messageErrorServer);
   }
 });
@@ -61,10 +61,10 @@ router.put('/:id', saleQuatityCheck, async (req, res) => {
    
     res.status(STATUS_OK).json(saleUpdated);
   } catch (error) {
-    console.log(erro.message);
+   // console.log(erro.message);
     res.status(STATUS_ERRO).send(messageErrorServer);
   }
-} );
+});
 
 router.delete('/:id', idRemoveCheck, async (req, res) => {
   try {
@@ -72,9 +72,9 @@ router.delete('/:id', idRemoveCheck, async (req, res) => {
     const saleRemoved = await saleModel.removeSale(id);
     res.status(STATUS_OK).json(saleRemoved);
   } catch (error) {
-    console.log(erro.message);
+   // console.log(erro.message);
     res.status(STATUS_ERRO).send(messageErrorServer);
   }
-} );
+});
 
 module.exports = router;

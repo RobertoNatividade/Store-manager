@@ -10,7 +10,7 @@ const addNewSale = async (itensSold) =>
 
 // Requisito06
 const getAllSales = async () =>
-  connect().then((db) => await db.collection('sales').find().toArray());
+  connect().then((db) => db.collection('sales').find().toArray());
 
 // Requisito06
 const getByIdSale = async (id) => {

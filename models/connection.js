@@ -5,12 +5,12 @@ const DB_NAME = 'StoreManager';
 
 const OPTIONS = {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 };
 
 const connection = async () => {
-  return await mongoClient.connect(MONGO_DB_URL, OPTIONS)
-    .then((connection) => connection.db(DB_NAME))
+  return mongoClient.connect(MONGO_DB_URL, OPTIONS)
+    .then((conn) => conn.db(DB_NAME))
     .catch((err) => {
       console.error(err);
       process.exit(1);
