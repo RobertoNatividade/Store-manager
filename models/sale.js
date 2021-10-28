@@ -20,7 +20,7 @@ const getByIdSale = async (id) => {
   return product;
 };
 
-const updateIdSale = async (id, itensSold) => {
+const updateIdSale = async (id, _itensSold) => {
   if (!ObjectId.isValid(id)) {
     return null;
   }

@@ -27,8 +27,8 @@ router.post('/', saleQuatityCheck, async (req, res) => {
   router.get('/:id', async (req, res) => {
     try {
       const { id } = req.params;
-      const sale = await sale.getByIdSale(id);
-      if (!sale) {
+      const salee = await sale.getByIdSale(id);
+      if (!salee) {
         res.status(STATUS_ERROR_NOT_FOUND).json({
           err: {
             code: 'not_found',
@@ -36,7 +36,7 @@ router.post('/', saleQuatityCheck, async (req, res) => {
           },
         });
       }
-      res.status(STATUS_OK).json(sale);
+      res.status(STATUS_OK).json(salee);
     } catch (error) {
       // console.log(erro.message);
       res.status(STATUS_ERROR).send(messageErrorServer);
@@ -47,7 +47,7 @@ router.post('/', saleQuatityCheck, async (req, res) => {
   router.get('/', async (req, res) => {
     try {
       const sales = await sale.getAllSales();
-      res.status(STATUS_OK).json({ 'sales': sales });
+      res.status(STATUS_OK).json({ sales });
     } catch (error) {
       // console.log(erro.message);
       res.status(STATUS_ERROR).send(messageErrorServer);
@@ -59,7 +59,7 @@ router.post('/', saleQuatityCheck, async (req, res) => {
     try {
       const { id } = req.params;
       const saleUpdate = req.body;
-      const saleUpdated = await sale.updateIdSale(id, saleUpdate);
+      const saleUpdated = await salee.updateIdSale(id, saleUpdate);
       res.status(STATUS_OK).json(saleUpdated);
     } catch (error) {
       // console.log(erro.message);
@@ -70,7 +70,7 @@ router.post('/', saleQuatityCheck, async (req, res) => {
   router.delete('/:id', idRemoveCheck, async (req, res) => {
     try {
       const { id } = req.params;
-      const saleRemoved = await sale.removeSale(id);
+      const saleRemoved = await salee.removeSale(id);
       res.status(STATUS_OK).json(saleRemoved);
     } catch (error) {
       // console.log(erro.message);
