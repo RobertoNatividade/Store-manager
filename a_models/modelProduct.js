@@ -11,6 +11,6 @@ const addProduct = async ({ name, quantity }) => {
     quantity,
   }));    
   return add;
-}
+};
 
 module.exports = { addProduct };
