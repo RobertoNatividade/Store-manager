@@ -15,6 +15,6 @@ app.get('/', (_request, response) => {
   response.send();
 });
 
-app.get('/products', prodrouter);
+app.use(prodrouter);
 
 app.listen(PORT, () => console.log('App ouvindo a porta 3000!'));
