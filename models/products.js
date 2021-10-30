@@ -6,8 +6,7 @@ const postProduct = async (name, quantity) => {
   const prod = await connection()
     .then((db) => db.collection('products').insertOne({ name, quantity }));
 
-  return prod.ops[0];
-  // console.log(prod);
+  return prod.ops[0]; 
 };
 
 const getAllProducts = async () => connection()
