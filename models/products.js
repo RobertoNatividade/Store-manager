@@ -10,7 +10,7 @@ const postProduct = async (name, quantity) => {
   // console.log(prod);
 };
 
-const getAllProducts = async () => await connection()
+const getAllProducts = async () => connection()
 .then((db) => db.collection('products').find().toArray());
 
 const getProductById = async (id) => {
@@ -23,7 +23,7 @@ const getProductById = async (id) => {
 
 const findOne = async (name) => {
   const prod = await connection()
-    .then((db) => db.collection('products').findOne({ name: name }));
+    .then((db) => db.collection('products').findOne({ name }));
 
   return prod;
 };
@@ -36,8 +36,7 @@ const putProduct = async (id, name, quantity) => {
   connection().then((db) => db.collection('products')
     .updateOne(
       { _id: ObjectId(id) },
-      { $set: { name, quantity } }
-    ),
+      { $set: { name, quantity } }),
   );
 
   return { _id: id, name, quantity };
@@ -47,8 +46,7 @@ const deleteProduct = async (id) => {
   if (!ObjectId.isValid(id)) {
     return null;
   }
-
-  return await connection()
+connection()
     .then((db) => db.collection('products').deleteOne({ _id: ObjectId(id) }));
 };
 
@@ -56,12 +54,12 @@ const validateQtd = async (id, qtd) => {
   await connection().then((db) => db.collection('products')
     .updateMany(
       { _id: ObjectId(id) },
-      { $inc: { quantity: - qtd } }
+      { $inc: { quantity: qtd } }
     ));
 };
 
-const ValidateSum = async (id, qtd) => {
-  return await connection().then((db) => db.collection('products')
+const ValidateSum = async (id, qtd) => connection()
+.then((db) => db.collection('products')
     .updateMany(
       { _id: ObjectId(id) },
       { $inc: { quantity: qtd } },

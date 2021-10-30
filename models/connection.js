@@ -19,7 +19,7 @@ const connection = async () => {
     .catch((err) => {
       console.log(err);
       process.exit();
-    },);
+    });
 };
 
 module.exports = connection;
