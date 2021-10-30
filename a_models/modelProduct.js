@@ -1,5 +1,4 @@
-const { ObjectId } = require('mongodb');
-
+// const { ObjectId } = require('mongodb');
 const connection = require('./modelConnection');
 
 // const COLLECTION = 'products';
