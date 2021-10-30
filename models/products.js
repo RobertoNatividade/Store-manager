@@ -1,5 +1,6 @@
-const connection = require('./connection');
 const { ObjectId } = require('mongodb');
+
+const connection = require('./connection');
 
 const postProduct = async (name, quantity) => {
   const prod = await connection()
@@ -9,8 +10,8 @@ const postProduct = async (name, quantity) => {
   // console.log(prod);
 };
 
-const getAllProducts = async () => {
-  return await connection().then((db) => db.collection('products').find().toArray());
+const getAllProducts = async () => await connection()
+.then((db) => db.collection('products').find().toArray());
 };
 
 const getProductById = async (id) => {
@@ -23,7 +24,7 @@ const getProductById = async (id) => {
 
 const findOne = async (name) => {
   const prod = await connection()
-    .then((db) => db.collection('products').findOne({ 'name': name }));
+    .then((db) => db.collection('products').findOne({ name: name }));
 
   return prod;
 };
@@ -34,7 +35,10 @@ const putProduct = async (id, name, quantity) => {
   }
 
   connection().then((db) => db.collection('products')
-    .updateOne({ _id: ObjectId(id) }, { $set: { name, quantity } }),
+    .updateOne(
+      { _id: ObjectId(id) },
+      { $set: { name, quantity } }
+    ),
   );
 
   return { _id: id, name, quantity };
@@ -50,7 +54,7 @@ const deleteProduct = async (id) => {
 };
 
 const validateQtd = async (id, qtd) => {
-  return await connection().then((db) => db.collection('products')
+  await connection().then((db) => db.collection('products')
     .updateMany(
       { _id: ObjectId(id) },
       { $inc: { quantity: - qtd } }
@@ -73,5 +77,5 @@ module.exports = {
   putProduct,
   deleteProduct,
   validateQtd,
-  ValidateSum
+  ValidateSum,
 };

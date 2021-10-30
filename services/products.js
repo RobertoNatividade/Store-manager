@@ -1,7 +1,7 @@
 const products = require('../models/products');
 
 const postProduct = async (name, quantity) => {
-  const findOne =  await products.findOne(name);
+  const findOne = await products.findOne(name);
 
   if (findOne) {
     return null;
@@ -20,11 +20,11 @@ const getProductById = async (id) => {
 };
 
 const putProduct = async (id, name, quantity) => {
-  return await products.putProduct(id, name, quantity);
+  await products.putProduct(id, name, quantity);
 };
 
 const deleteProduct = async (id) => {
-  return await products.deleteProduct(id);
+  await products.deleteProduct(id);
 };
 
 module.exports = {
@@ -32,5 +32,5 @@ module.exports = {
   getProductById,
   postProduct,
   putProduct,
-  deleteProduct
+  deleteProduct,
 };

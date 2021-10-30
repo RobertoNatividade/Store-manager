@@ -3,14 +3,14 @@ const minChar = 5;
 const minQtd = 0;
 
 const productName = (req, res, next) => {
-  const name = req.body.name;
+  const { name } = req.body;
 
   if (name.length < minChar) {
     return res.status(STATUS_422).json({
       err: {
         code: 'invalid_data',
         message: '"name" length must be at least 5 characters long',
-      }
+      },
     });
   }
 
@@ -29,7 +29,7 @@ const productQtd = (req, res, next) => {
     });
   }
 
-  if (qtd <= minQtd|| qtd % 1 !== minQtd) {
+  if (qtd <= minQtd || qtd % 1 !== minQtd) {
     return res.status(STATUS_422).json({
       err: {
         code: 'invalid_data',

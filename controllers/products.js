@@ -10,20 +10,17 @@ const postProduct = async (req, res) => {
 
   if (newProd !== null) {
     return res.status(STATUS_201).json(newProd);
-  } else {
+  } 
     return res.status(STATUS_422).json({
       err: {
         code: 'invalid_data',
         message: 'Product already exists',
       },
     });
-  }
-
 };
 
 const getAllProducts = async (_req, res) => {
   const products = await productServices.getAllProducts();
-
   return res.status(STATUS_200).json({ products });
 };
 
@@ -33,15 +30,13 @@ const getProductById = async (req, res) => {
 
   if (prod !== null) {
     return res.status(STATUS_200).send(prod);
-
-  } else {
+  } 
     return res.status(STATUS_422).json({
       err: {
         code: 'invalid_data',
         message: 'Wrong id format',
       },
-    });
-  }
+    });  
 };
 
 const putProduct = async (req, res) => {
@@ -60,14 +55,13 @@ const deleteProduct = async (req, res) => {
 
   if (product !== null) {
     return res.status(STATUS_200).send(product);
-  } else {
+  } 
     return res.status(STATUS_422).json({
       err: {
         code: 'invalid_data',
         message: 'Wrong id format',
       },
-    });
-  }
+    });  
 };
 
 module.exports = {
@@ -75,5 +69,5 @@ module.exports = {
   getProductById,
   postProduct,
   putProduct,
-  deleteProduct
+  deleteProduct,
 };
