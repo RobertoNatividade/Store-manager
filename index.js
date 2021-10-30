@@ -1,10 +1,10 @@
 const express = require('express');
-
 const bodyParser = require('body-parser');
-
-const routerProduct = require('./Route/routerProduct');
+const products = require('./controllers/products');
+const { productName, productQtd } = require('./middlewares/middProduct');
 
 const app = express();
+const PORT = 3000;
 
 app.use(bodyParser.json());
 
@@ -13,8 +13,10 @@ app.get('/', (_request, response) => {
   response.send();
 });
 
-app.use('/products', routerProduct);
+app.get('/products', products.getAllProducts);
+app.get('/products/:id', products.getProductById);
+app.post('/products', productName, productQtd, products.postProduct);
+app.put('/products/:id', productName, productQtd, products.putProduct);
+app.delete('/products/:id', products.deleteProduct);
 
-const PORT = 3000;
-
-app.listen(PORT, () => console.log('App ouvindo a porta 3000!'));
+app.listen(PORT, () => console.log(`Online na porta ${PORT}`));
