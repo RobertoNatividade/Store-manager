@@ -12,7 +12,6 @@ const postProduct = async (name, quantity) => {
 
 const getAllProducts = async () => await connection()
 .then((db) => db.collection('products').find().toArray());
-};
 
 const getProductById = async (id) => {
   if (!ObjectId.isValid(id)) {
