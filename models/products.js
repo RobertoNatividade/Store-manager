@@ -36,9 +36,8 @@ const putProduct = async (id, name, quantity) => {
   connection().then((db) => db.collection('products')
     .updateOne(
       { _id: ObjectId(id) },
-      { $set: { name, quantity } }
-    ),
-  );
+      { $set: { name, quantity } },
+    ));
   return { _id: id, name, quantity };
 };
 
@@ -58,7 +57,7 @@ const validateQtd = async (id, qtd) => {
     ));
 };
 
-const ValidateSum = async (id, qtd) => connection()
+const ValidateSum = async (id, qtd) => await connection()
 .then((db) => db.collection('products')
     .updateMany(
       { _id: ObjectId(id) },
