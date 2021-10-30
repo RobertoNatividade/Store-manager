@@ -1,16 +1,16 @@
- const connection = require('./modelConnection');
+const connection = require('./modelConnection');
 
 const COLLECTION = 'products';
 
-const addProduct = async ({ name, quantity }) => {
- const add = await connection().then((db) => db.collection(COLLECTION)
+const createProduct = async ({ name, quantity }) => {
+ const addProduct = await connection().then((db) => db.collection(COLLECTION)
   .insertOne({ name, quantity }))
   .then((result) => ({
     _id: result.insertedId,
     name,
     quantity,
   }));    
-  return add;
+  return addProduct;
 };
 
-module.exports = { addProduct };
+module.exports = { createProduct };
