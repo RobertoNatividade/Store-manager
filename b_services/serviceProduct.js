@@ -8,6 +8,6 @@ const allProducts = async () => {
 const createProduct = async (product) => {
   const products = await Product.createProduct(product);
   return products;
-}
+};
 
-module.exports = { allProducts, createProduct, };
+module.exports = { allProducts, createProduct };
