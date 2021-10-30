@@ -1,16 +1,22 @@
 const connection = require('./modelConnection');
+const { ObjectId } = require('mongodb')
 
-const COLLECTION = 'products';
+// const COLLECTION = 'products';
 
-const createProduct = async ({ name, quantity }) => {
- const addProduct = await connection().then((db) => db.collection(COLLECTION)
-  .insertOne({ name, quantity }))
-  .then((result) => ({
-    _id: result.insertedId,
-    name,
-    quantity,
-  }));    
-  return addProduct;
+const allProducts = async () => {
+  const connect = await connection()
+  .then((db) => db.collection('products').find().toArray())
+  return connect;
 };
 
-module.exports = { createProduct };
+const createProduct = async (product) => {
+  try {
+    const criarProduto = await connection()
+    .then((bd) => bd.collection('products').insertOne(product));
+    return criarProduto.ops[0];
+  }catch(error) {
+    return error.message;
+  }
+}
+
+module.exports = { allProducts, createProduct, }

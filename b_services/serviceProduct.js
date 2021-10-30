@@ -1,8 +1,13 @@
-const Products = require('../a_models/modelProduct');
+const Product = require('../a_models/modelProduct');
 
-const createProduct = async ({ name, quantity }) => {
-  const addProduct = await Products.createProduct({ name, quantity });
-  return addProduct;
+const allProducts = async () => {
+  const products = await Product.allProducts();
+  return products;
 };
 
-module.exports = { createProduct };
+const createProduct = async (product) => {
+  const products = await Product.createProduct(product);
+  return products;
+}
+
+module.exports = { allProducts, createProduct, };

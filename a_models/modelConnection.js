@@ -6,12 +6,13 @@ const DB_NAME = 'StoreManager';
 
 const OPTIONS = { useNewUrlParser: true, useUnifiedTopology: true };
 
-const connection = () => MongoClient
-    .connect(MONGO_DB_URL, OPTIONS)
-    .then((conn) => conn.db(DB_NAME))
-    .catch((err) => {
-      console.error(err);
-      process.exit(1);
-    });
+let dataName = null;
+
+const connection = () => (dataName 
+    ? Promise.resolve(dataName) : MongoClient.connect(MONGO_DB_URL, OPTIONS)
+    .then((conex) => {
+        dataName = conex.db(DB_NAME);
+        return dataName;
+    }));
 
 module.exports = connection;
