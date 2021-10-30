@@ -3,9 +3,9 @@ const Product = require('../b_services/serviceProduct');
 const allProducts = async (_req, res) => {
   try {
     const Produtos = await Product.allProducts();
-    return res.status(200).json({ products: Produtos})
+    return res.status(200).json({ products: Produtos });
   } catch (error) {
-    return res.status(400).json({ err: error.message })
+    return res.status(400).json({ err: error.message });
   }
 };
 

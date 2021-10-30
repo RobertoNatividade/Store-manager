@@ -1,6 +1,7 @@
+const { ObjectId } = require('mongodb');
+
 const connection = require('./modelConnection');
 
-const { ObjectId } = require('mongodb');
 // const COLLECTION = 'products';
 
 const allProducts = async () => {
@@ -19,4 +20,4 @@ const createProduct = async (product) => {
   }
 };
 
-module.exports = { allProducts, createProduct, };
+module.exports = { allProducts, createProduct };
