@@ -64,7 +64,6 @@ const ValidateSum = async (id, qtd) => connection()
       { _id: ObjectId(id) },
       { $inc: { quantity: qtd } },
     ));
-};
 
 module.exports = {
   getAllProducts,
