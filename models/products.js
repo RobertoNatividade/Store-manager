@@ -57,8 +57,8 @@ const validateQtd = async (id, qtd) => {
     ));
 };
 
-const ValidateSum = async (id, qtd) => await connection()
-.then((db) => db.collection('products')
+const ValidateSum = async (id, qtd) => connection()
+.then((dab) => dab.collection('products')
     .updateMany(
       { _id: ObjectId(id) },
       { $inc: { quantity: qtd } },
