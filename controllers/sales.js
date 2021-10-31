@@ -10,9 +10,9 @@ const postSales = async (req, res) => {
   let lessThanZero = false;
   const nineNine = 99;
   if (data !== null) {
-    data.itensSold.map((e) => (e.quantity > nineNine) 
-     // lessThanZero = true;       
-    );
+    data.itensSold.map((e) => (e.quantity > nineNine) {
+    return lessThanZero = true;
+    });
     if (lessThanZero) {
       return res.status(STATUS_404).json({
         err: {
@@ -29,24 +29,20 @@ const getAllSales = async (_req, res) => {
 
   if (data !== null) {
     return res.status(STATUS_200).json({ sales: data });
-
-  } return res.status(STATUS_422).send({ message: 'Não foi possivel encontrar vendas' });
-  
+  } return res.status(STATUS_422).send({ message: 'Não foi possivel encontrar vendas' });  
 };
 const getSalesById = async (req, res) => {
   const { id } = req.params;
   const itensSold = await sales.getSalesById(id);
-
   if (itensSold) {
     return res.status(STATUS_200).send(itensSold);
-  } else {
+  }
     return res.status(STATUS_404).json({
       err: {
         code: 'not_found',
         message: 'Sale not found',
       },
-    });
-  }
+    });  
 };
 
 const putSales = async (req, res) => {
@@ -54,11 +50,10 @@ const putSales = async (req, res) => {
     const newSale = req.body;
     const { id } = req.params;
     const data = await sales.putSales(id, newSale);
-
     return res.status(STATUS_200).send(data);
   } catch (err) {
     return res.status(STATUS_422).send({
-      message: 'Wrong product ID or invalid quantity'
+      message: 'Wrong product ID or invalid quantity',
     });
   }
 };
@@ -66,7 +61,6 @@ const putSales = async (req, res) => {
 const deleteSales = async (req, res) => {
   const { id } = req.params;
   const data = await sales.deleteSales(id);
-
   const dataError = {
     code: 'invalid_data',
     error: { message: 'Wrong sale ID format' },

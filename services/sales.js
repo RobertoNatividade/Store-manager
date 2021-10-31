@@ -33,8 +33,7 @@ const deleteSales = async (id) => {
     };
   } const del = sales.deleteSales(id);
     data.itensSold.forEach(async (e) => products
-    .ValidateSum(e.productId, e.quantity),
-    );
+    .ValidateSum(e.productId, e.quantity));
     return del;  
 };
 
