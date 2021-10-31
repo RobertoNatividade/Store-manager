@@ -1,14 +1,14 @@
-const connection = require('./connection');
 const { ObjectId } = require('mongodb');
 
-const postSales = async (data) => {
-  return connection()
+const connection = require('./connection');
+
+const postSales = async (data) => connection()
     .then((db) => db.collection('sales').insertOne({ itensSold: data }))
     .then((e) => e.ops[0]);
 };
 
-const getAllSales = async () => {
-  return connection().then((db) => db.collection('sales').find().toArray());
+const getAllSales = async () => connection()
+.then((db) => db.collection('sales').find().toArray());
 };
 
 const getSalesById = async (id) => {
@@ -27,7 +27,6 @@ const putSales = async (id, itensSold) => {
   connection().then((db) =>
     db.collection('sales').updateOne({ _id: ObjectId(id) }, { $set: { itensSold } }),
   );
-
   return { _id: id, itensSold };
 };
 

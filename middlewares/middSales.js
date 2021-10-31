@@ -6,7 +6,7 @@ const salesQtd = (req, res, next) => {
   const min = 1;
 
   for (let i = start; i < sales.length; i += 1) {
-    if (sales[i].quantity < min || typeof(sales[i].quantity) !== 'number') {
+    if (sales[i].quantity < min || typeof (sales[i].quantity) !== 'number') {
       return res.status(STATUS_422).json({
         err: {
           code: 'invalid_data',
@@ -20,5 +20,5 @@ const salesQtd = (req, res, next) => {
 };
 
 module.exports = {
-  salesQtd
+  salesQtd,
 };

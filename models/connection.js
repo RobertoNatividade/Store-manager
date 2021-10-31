@@ -1,8 +1,7 @@
 const { MongoClient } = require('mongodb');
 
-const DB = 'StoreManager';
-
 const URL = 'mongodb://mongodb:27017/StoreManager';
+const DB = 'StoreManager';
 
 const OPTIONS = {
   useNewUrlParser: true,

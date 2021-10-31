@@ -9,12 +9,9 @@ const postSales = async (req, res) => {
   const data = await sales.postSales(newSale);
   let lessThanZero = false;
   const nineNine = 99;
-
   if (data !== null) {
-    data.itensSold.map((e) => {
-      if (e.quantity > nineNine) {
-        lessThanZero = true;
-      }      
+    data.itensSold.map((e) => if (e.quantity > nineNine) {
+        lessThanZero = true; }      
     });
     if (lessThanZero) {
       return res.status(STATUS_404).json({
@@ -23,9 +20,7 @@ const postSales = async (req, res) => {
           message: 'Such amount is not permitted to sell',
         },
       });
-    } else {
-      return res.status(STATUS_200).json(data);
-    }
+    } return res.status(STATUS_200).json(data);
   } 
 };
 
@@ -35,18 +30,15 @@ const getAllSales = async (_req, res) => {
   if (data !== null) {
     return res.status(STATUS_200).json({ sales: data });
 
-  } else {
-    return res.status(STATUS_422).send({ message: 'Não foi possivel encontrar vendas' });
-  }
+  } return res.status(STATUS_422).send({ message: 'Não foi possivel encontrar vendas' });
+  
 };
-
 const getSalesById = async (req, res) => {
   const { id } = req.params;
   const itensSold = await sales.getSalesById(id);
 
   if (itensSold) {
     return res.status(STATUS_200).send(itensSold);
-
   } else {
     return res.status(STATUS_404).json({
       err: {
@@ -78,20 +70,16 @@ const deleteSales = async (req, res) => {
   const dataError = {
     code: 'invalid_data',
     error: { message: 'Wrong sale ID format' },
-    status: STATUS_422
+    status: STATUS_422,
   };
-
   if (JSON.stringify(data) !== JSON.stringify(dataError)) {
     return res.status(STATUS_200).send(data);
-
-  } else {
-    res.status(STATUS_422).json({
+  } res.status(STATUS_422).json({
       err: {
         code: 'invalid_data',
         message: 'Wrong sale ID format',
       },
-    });
-  }
+    }); 
 };
 
 module.exports = {
