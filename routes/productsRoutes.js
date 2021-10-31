@@ -1,42 +1,32 @@
-const router = require('express').Router()
-const { deleteProducts,} = require('./controllers/productsControlle');
+const express = require('express');
+const productsController = require('../controllers/productController');
 
-const {
-    createProduct,
-    getProductsById,
-    getAllProducts,
-    updateProducts,
-    deleteProducts,
-  } = require('./controllers/productsControlle');
-  
-  const {
-    validateNameLength,
-    productExists,
-    productsQuantity,
-    validListFormat,
-  } = require('./middlewares/validateData');
+const { nameAuth, quantityAuth } = require('../middlewares');
 
-router.get('/products/:id',
-validListFormat,
-getProductsById);
+const router = express.Router();
 
-router.get('/products', getAllProducts);
+router.post('/', [
+  nameAuth,
+  quantityAuth,
+  productsController.add,
+]);
 
-router.put('/products/:id',
-validateNameLength,
-productsQuantity,
-updateProducts);
+router.get('/', [
+  productsController.getAll,
+]);
 
-router.post('/products',
-validateNameLength,
-productExists,
-productsQuantity,
-createProduct);
+router.get('/:id', [
+  productsController.getById,
+]);
 
-router.delete('/products/:id',
-validListFormat,
-deleteProducts);
+router.put('/:id', [
+  nameAuth,
+  quantityAuth,
+  productsController.update,
+]);
 
-router.delete('/products/:id', validListFormat, deleteProducts);
+router.delete('/:id', [
+  productsController.remove,
+]);
 
-module.expports = router
+module.exports = router;
