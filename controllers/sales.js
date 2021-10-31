@@ -4,7 +4,7 @@ const STATUS_200 = 200;
 const STATUS_422 = 422;
 const STATUS_404 = 404;
 
-const postSales = async (req, res) => {
+/* const postSales = async (req, res) => {
   const newSale = req.body;
   const data = await sales.postSales(newSale);
   let lessThanZero = false;
@@ -21,7 +21,7 @@ const postSales = async (req, res) => {
       });
     } return res.status(STATUS_200).json(data);
   } 
-};
+}; */
 
 const getAllSales = async (_req, res) => {
   const data = await sales.getAllSales();
