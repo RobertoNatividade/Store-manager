@@ -4,7 +4,6 @@ const products = require('../models/products');
 const STATUS_422 = 422;
 
 const getAllSales = async () => sales.getAllSales();
-};
 
 const postSales = async (newSale) => {
   const result = await sales.postSales(newSale);

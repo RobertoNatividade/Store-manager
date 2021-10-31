@@ -5,11 +5,9 @@ const connection = require('./connection');
 const postSales = async (data) => connection()
     .then((db) => db.collection('sales').insertOne({ itensSold: data }))
     .then((e) => e.ops[0]);
-};
 
 const getAllSales = async () => connection()
 .then((db) => db.collection('sales').find().toArray());
-};
 
 const getSalesById = async (id) => {
   if (!ObjectId.isValid(id)) {
