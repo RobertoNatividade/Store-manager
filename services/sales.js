@@ -41,10 +41,8 @@ const deleteSales = async (id) => {
 };
 
 const putSales = async (id, quantity) => sales.putSales(id, quantity);
-};
 
 const getSalesById = async (id) => sales.getSalesById(id);
-};
 
 module.exports = {
   getAllSales,
