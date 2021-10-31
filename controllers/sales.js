@@ -10,9 +10,8 @@ const postSales = async (req, res) => {
   let lessThanZero = false;
   const nineNine = 99;
   if (data !== null) {
-    data.itensSold.map((e) => (e.quantity > nineNine)
-    lessThanZero = true;
-    });
+   data.itensSold.map((e) => (e.quantity > nineNine)
+    lessThanZero = true);
     if (lessThanZero) {
       return res.status(STATUS_404).json({
         err: {
