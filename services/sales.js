@@ -17,7 +17,6 @@ const postSales = async (newSale) => {
         },
         status: 422,
       };
-
     } return products.validateQtd(item.productId, item.quantity);    
   });
   return result;
@@ -32,10 +31,9 @@ const deleteSales = async (id) => {
       error: { message: 'Wrong sale ID format' },
       status: STATUS_422,
     };
-
   } const del = sales.deleteSales(id);
     data.itensSold.forEach(async (e) => products
-    .ValidateSum(e.productId, e.quantity)
+    .ValidateSum(e.productId, e.quantity),
     );
     return del;  
 };
