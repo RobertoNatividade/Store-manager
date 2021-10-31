@@ -76,7 +76,7 @@ const deleteSales = async (req, res) => {
 };
 
 module.exports = {
-  postSales,
+ // postSales,
   deleteSales,
   getSalesById,
   putSales,
