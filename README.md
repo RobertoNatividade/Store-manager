@@ -79,7 +79,7 @@ Você vai desenvolver sua primeira API utilizando a arquitetura MSC!
 
 A API a ser construída trata-se de um sistema de gerenciamento de vendas, onde será possível criar, visualizar, deletar e atualizar produtos e vendas.
 
----
+----
 
 ## Desenvolvimento
 
